@@ -22,6 +22,8 @@ Endpoints of cache server:
 ## Project structure
 
 `server.js` - The main server
+
 `wrapper.js` - Example wrapper
+
 `test/test.js` - Demonstration of the wrapper and server
 
