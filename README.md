@@ -9,15 +9,16 @@ Cache server built for internal use at Temes.
 Start the cache server with `node server.js -k authorizationkey -p port`
 
 Endpoints of cache server:
--GET `/` - If the cache server is functioning properly, will return the object `{status: "online", message: "Cache server online"}`
+
+- GET `/` - If the cache server is functioning properly, will return the object `{status: "online", message: "Cache server online"}`
 
 **ALL REQUESTS AFTERWARDS REQUIRE AN `AUTHORIZATION` HEADER, WHICH NEEDS TO BE THE SAME AS THE AUTHORIZATION KEY YOU SET WHEN STARTING THE SERVER**
 
--POST `/set/:value` Headers: `content`: Whatever you want to set `:value` to.
+- POST `/set/:value` Headers: `content`: Whatever you want to set `:value` to.
 
--GET `/get/:value` - Returns the value of `:value`
+- GET `/get/:value` - Returns the value of `:value`
 
--DELETE `/del/:value` - Deletes `:value` from the cache server entirely
+- DELETE `/del/:value` - Deletes `:value` from the cache server entirely
 
 ## Project structure
 
