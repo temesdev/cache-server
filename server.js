@@ -1,45 +1,46 @@
-const express = require('express');
-const app = express();
+const server = require('fastify')({
+    logger: false
+})
 
 const argv = require('larg')(process.argv.slice(2))
-const _cache = new Map();
+const _cache = new Map()
 
 const authkey = argv.k || ''
-const port = argv.p || 8000;
+const port = argv.p || 8000
 const debug = argv.d
 
-app.get('/', (req, res) => {
-    res.send(JSON.stringify({ status: "online", message: "Cache server online" }));
-});
+server.get('/', async (req, rep) => {
+    return { hello: 'world' }
+})
 
-app.post('/set/:value', (req, res) => {
-    if (req.get('Authorization') !== authkey) 
-        return res.sendStatus(403).end();
-    _cache.set(req.params.value, req.get('content'));
+server.post('/set/:value', async (req, rep) => {
+    if (req.headers.authorization !== authkey)
+        return rep.code(403).send('403 Unauthorized')
+    _cache.set(req.params.value, req.headers.content)
+    if (debug)
+        console.log(_cache)
+    return { status: "ok" }
+})
+
+server.get('/get/:value', async (req, rep) => {
+    if (req.headers.authorization !== authkey)
+        return rep.code(403).send('403 Unauthorized')
+    return _cache.get(req.params.value)
+})
+
+server.delete('/del/:value', async (req, rep) => {
+    if (req.headers.authorization !== authkey)
+        return rep.code(403).send('403 Unauthorized')
+    _cache.delete(req.params.value)
     if (debug)
         console.log(_cache);
-    res.json({ status: "ok" });
-});
+    return { status: "ok" }
+})
 
-app.get('/get/:value', (req, res) => {
-    if (req.get('Authorization') !== authkey)
-        return res.sendStatus(403).end();
-    res.send(_cache.get(req.params.value));
-});
-
-app.delete('/del/:value', (req, res) => {
-    if (req.get('Authorization') !== authkey)
-        return res.sendStatus(403).end();
-    _cache.delete(req.params.value);
-    if (debug)
-        console.log(_cache);
-    res.json({ status: "ok" });
-});
-
-app.listen(port, _ => {
-    if (authkey.length < 1 || authkey === true) {
-        console.error(`No authorization key specified. Use the launch option "-k" followed by the key to set it.`);
-        process.exit();
+server.listen(port, (err, address) => {
+    if (err) {
+        server.log.error(err)
+        process.exit(1)
     }
-    console.log(`Cache server online. Listening on port ${port}`);
-});
+    server.log.info(`server listening on ${address}`)
+})

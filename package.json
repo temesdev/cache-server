@@ -2,7 +2,8 @@
   "name": "cache-server",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
+    "fastify": "^2.8.0",
     "larg": "^0.0.4"
   },
   "devDependencies": {
