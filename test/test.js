@@ -3,15 +3,21 @@ const { cs } = require('../wrapper.js')
 ;(async() => {
     const b = new cs('http://localhost:8000', 'password')
 
-    b.set('asd', JSON.stringify({a: 1, b:1})).then(a => {
-        console.log(a)
-    })
+    let then = Date.now()
 
-    b.get('asd').then(a => {
-        console.log(a)
-    })
+    let a = await b.set('asd', JSON.stringify({a: 1, b:1}))
 
-    b.del('asd').then(a => {
-        console.log(a)
-    })
+    console.log(a, Date.now() - then)
+
+    then = Date.now()
+
+    a = await b.get('asd')
+
+    console.log(a, Date.now() - then)
+
+    then = Date.now()
+    
+    a = await b.del('asd')
+
+    console.log(a, Date.now() - then)
 })()
