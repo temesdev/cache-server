@@ -1,18 +1,17 @@
 {
-  "name": "idk-cache-server",
+  "name": "cache-server",
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.16.4",
     "larg": "^0.0.4"
   },
   "devDependencies": {
-    "@types/express": "^4.16.1",
     "wumpfetch": "^0.2.12"
   },
   "scripts": {
     "test": "node test/test.js",
-    "dev": "node server.js"
+    "dev": "node server.js -k password"
   },
   "license": "MIT",
-  "author": "idk"
+  "author": "Temes"
 }
