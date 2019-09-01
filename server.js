@@ -4,8 +4,8 @@ const app = express();
 const argv = require('larg')(process.argv.slice(2))
 const _cache = new Map();
 
-const authkey = argv.k ? argv.k : ''
-const port = argv.p ? argv.p : 8000;
+const authkey = argv.k || ''
+const port = argv.p || 8000;
 const debug = argv.d
 
 app.get('/', (req, res) => {
