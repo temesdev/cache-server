@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.17.1",
-    "fastify": "^2.8.0",
+    "fastify": "^2.15.1",
     "larg": "^0.0.4"
   },
   "devDependencies": {
